@@ -1,0 +1,1 @@
+toToast($taille = 'font-size: 50px');
