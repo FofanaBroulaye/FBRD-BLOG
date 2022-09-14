@@ -26,7 +26,7 @@
 	</button>
 	<div class="container">
 		<!-- Begin Logo -->
-		<a class="navbar-brand" href="index.html">
+		<a class="navbar-brand" href="">
 		<img src="assets/img/logo.png" alt="logo">
 		</a>
 		<!-- End Logo -->
@@ -120,11 +120,11 @@
 									<form action="{{route('post.delete', ['post' => $post->id])}}" method="post" id="supp">
 										@csrf
 										@method('DELETE')
-										<input type="hidden" name="supp" value="{{$post->id}}">									
+										<input type="hidden" name="supp" value="{{$post->id}}">
 										<button class="btn btn-link1" type="submit"><i class="fa fa-trash btn-style-del "></i></button>
 									</form>
 								</div>
-								
+
 							</div>
 						</div>
 					</div>
@@ -136,7 +136,7 @@
 
 	</div>
 	</section>
-	
+
 
 	<!-- Begin Footer
 	================================================== -->
