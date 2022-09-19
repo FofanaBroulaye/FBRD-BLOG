@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class HomeController extends Controller
 {
@@ -25,10 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $listPostsbyUser = Post::all()->where('user_id', auth()->user()->id);
-        $listPosts = Post::all();
+
+        $listPostsbyUsers = Post::paginate(8)->where('user_id', auth()->user()->id);
+        $listPosts = Post::paginate(8);
         if(auth()->user()->email != "fofanabr97@gmail.com"){
-            return view('posts.indexPostUser', compact('listPosts', 'listPostsbyUser'));
+            return view('posts.indexPostUser', compact('listPosts', 'listPostsbyUsers'));
         }
         return view('welcome', compact('listPosts'));
     }
@@ -37,6 +39,6 @@ class HomeController extends Controller
 
     public function create(){
         $categories = Category::all();
-        return view('posts.newPostUser',compact('categories'));
+        return view('posts.new',compact('categories'));
     }
 }

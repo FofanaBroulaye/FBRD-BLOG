@@ -1,160 +1,55 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" href="{{asset('assets/img/LOGO2.png')}}">
-<title>Mediumish - A Medium style template by WowThemes.net</title>
-<!-- Bootstrap core CSS -->
-<link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
-<!-- Fonts -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
-<!-- Custom styles for this template -->
-<link href="{{asset('assets/css/mediumish.css')}}" rel="stylesheet">
-</head>
-<body>
+@extends('layouts.master')
+@section('content')
+    <div class="hero-wrap" style="background-image: url('../images/bg_1.jpg');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
+                <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
+                    <div class="text">
+                        <p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home</a></span>
+                            <span>Blog</span></p>
+                        <h1 class="mb-4 bread">Blog</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- Begin Nav
-================================================== -->
-<nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
-<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-<span class="navbar-toggler-icon"></span>
-</button>
-<div class="container">
-	<!-- Begin Logo -->
-	<a class="navbar-brand" href="">
-	<img src="{{asset('assets/img/LOGO2.png')}}" alt="logo">
-	</a>
-	<!-- End Logo -->
-	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-		<!-- Begin Menu -->
-		<ul class="navbar-nav ml-auto">
-			<li class="nav-item active">
-			<a class="nav-link" href="">Stories <span class="sr-only">(current)</span></a>
-			</li>
-			<li class="nav-item">
-			<a class="nav-link"  href="{{route('postUser.index')}}">Post</a>
-			</li>
-			@if(auth()->user()->email == "fofanabr97@gmail.com")
-			<li class="nav-item">
-			<a class="nav-link" href="author.html">Author</a>
-			</li>
-			@endif
-		</ul>
-		<!-- End Menu -->
-		<!-- Begin Search -->
-		<form class="form-inline my-2 my-lg-0">
-			<input class="form-control mr-sm-2" type="text" placeholder="Search">
-			<span class="search-icon"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M20.067 18.933l-4.157-4.157a6 6 0 1 0-.884.884l4.157 4.157a.624.624 0 1 0 .884-.884zM6.5 11c0-2.62 2.13-4.75 4.75-4.75S16 8.38 16 11s-2.13 4.75-4.75 4.75S6.5 13.62 6.5 11z"></path></svg></span>
-		</form>
-		<!-- End Search -->
-	</div>
-</div>
-<div class="dropdown">
-			<img src="{{asset('/storage/'.Auth::user()->photo)}}" alt="" sizes="" srcset="">
-          <a class="nav-link dropdown-toggle" href="#" role="button" id="deroulanta" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{ Auth::user()->name }}</a>
-          <div class="dropdown-menu" aria-labelledby="deroulanta">
-            <a class="dropdown-item" href="{{ route('logout') }}"
-                onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                {{ __('Se déconnecter') }}
-            </a>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row d-flex">
+                @foreach($listPostsbyUsers as $listPostsbyUser)
+                    <div class="col-md-3 d-flex ftco-animate">
+                    <div class="blog-entry align-self-stretch">
+                        <img src="{{asset('/storage/' . $listPostsbyUser->image)}}" width="200px" height="250px" alt="">
+                        <div class="text mt-3 d-block">
+                            <h3 class="heading mt-3"><a href="#">Even the all-powerful Pointing has no control about the
+                                    blind texts</a></h3>
+                            <div class="meta mb-3">
+                                <div><a href="#">{{$listPostsbyUser->created_at->format('d M Y')}}</a></div>
+                                <div><a href="#">Admin</a></div>
+                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            <div class="row mt-5">
+                <div class="col text-center">
+                    <div class="block-27">
+                        <ul>
+                            <li>{{$listPostsbyUsers->links()}}</li>
 
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-            </form>
-          </div>
-</div>
-</nav>
-<!-- End Nav
-================================================== -->
-
-<!-- Begin Site Title
-================================================== -->
-<div class="container">
-	<div class="mainheading">
-		<h1 class="sitetitle">Mediumish</h1>
-		<p class="lead">
-			 Bootstrap theme, medium style, simply perfect for bloggers
-		</p>
-	</div>
-<!-- End Site Title
-================================================== -->
-
-	<!-- Begin Featured
-	================================================== -->
-	<section class="featured-posts">
-	@include('sweetalert::alert')
-	<div class="section-title">
-		<h2><span>Acacia chez l'homme sympa</span></h2>
-	</div>
-	<div class="card-columns listfeaturedtag">
-
-		<!-- begin post -->
-        @foreach($listPostsbyUser as $post)
-		<div class="card">
-			<div class="row">
-				<div class="col-md-5 wrapthumbnail">
-					<a href="">
-						<div class="thumbnail" >
-							<img src="{{asset('/storage/' .$post->image)}}" width="200px" height="250px" alt="">
-						</div>
-					</a>
-				</div>
-				<div class="col-md-7">
-					<div class="card-block">
-						<h2 class="card-title"><a href="post.html">{{$post->title}}</a></h2>
-						<h4 class="card-text">{{$post->content, 50}}.</h4>
-						<div class="metafooter">
-							<div class="wrapfooter">
-								<span class="meta-footer-thumb">
-								<a href="author.html"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
-								</span>
-								<span class="author-meta">
-								<span class="post-name"><a href="author.html">{{@$post->users->name}}</a></span><br/>
-								<span class="post-date">{{$post->created_at->format('d M Y')}}</span><span class="dot"></span><span class="post-read">{{$post->created_at->diffForhumans()}}</span>
-								</span>
-								<span class="post-read-more"><a href="" title="Read Story"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg></a></span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-        @endforeach
-		<!-- end post -->
-
-	</div>
-	</section>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{{--    @include('database.edit')--}}
+@endsection
 
 
-	<!-- Begin Footer
-	================================================== -->
-	<div class="footer">
-		<p class="pull-left">
-			 Copyright &copy; 2017 Your Website Name
-		</p>
-		<p class="pull-right">
-			 Mediumish Theme by <a target="_blank" href="https://www.wowthemes.net">WowThemes.net</a>
-		</p>
-		<div class="clearfix">
-		</div>
-	</div>
-	<!-- End Footer
-	================================================== -->
 
-</div>
-<!-- /.container -->
 
-<!-- Bootstrap core JavaScript
-    ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="{{asset('assets/js/jquery.min.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-<script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('assets/js/ie10-viewport-bug-workaround.js')}}"></script>
-</body>
-</html>

@@ -30,7 +30,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        
+
         $categories = Category::all();
         return view('posts.new', compact('categories'));
     }
@@ -48,6 +48,7 @@ class PostController extends Controller
             'category_id'=> 'required',
             'comment' => 'required',
             'photo' => 'required',
+            'prix' => 'required'
 
         ]);
 
@@ -58,7 +59,8 @@ class PostController extends Controller
             'category_id'=> $request->category_id,
             'content' => $request->comment,
             'image' => $request->photo ? $request->photo->store('photos','public') : null,
-            "user_id" => auth()->user()->id
+            "user_id" => auth()->user()->id,
+             "prix" => $request->prix
            ]);
            if($request){
             Toast('Post crée avec succès', 'success');
@@ -102,33 +104,37 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+
         $request->validate([
             'nom'=> 'required',
             'category_id'=> 'required',
             'comment' => 'required',
             'photo' => 'required',
+            'prix' => 'required'
 
         ]);
 
         try{
 
-           
+
            $post->update([
             'title'=> $request->nom,
             'category_id'=> $request->category_id,
             'content' => $request->comment,
+            'prix' => $request->prix,
             'image' => $request->photo ? $request->photo->store('photos','public') : null,
             // "user_id" => auth()->user()->id
            ]);
+
            if($request){
-            Alert::success('Editer', 'Post mis à jour avec succès');
+               Toast('Post édité avec succès', 'success');
            }
 
         }catch (\Exception $exception){
             session()->flash('warning',$exception->getMessage());
         }
         return back();
-        
+
     }
 
     /**
@@ -140,9 +146,9 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-        Alert::success('Supprimer', 'Post supprimé avec succès');
+        Toast('Post supprimé avec succès', 'success');
         return redirect('/');
-       
+
     }
 
     public function listusers(){

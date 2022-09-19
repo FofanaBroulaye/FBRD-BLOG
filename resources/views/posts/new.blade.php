@@ -1,92 +1,94 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>RegistrationForm_v5 by Colorlib</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-		<!-- MATERIAL DESIGN ICONIC FONT -->
-		<link rel="stylesheet" href="{{asset('image/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css')}}">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="sweetalert2.min.js"></script>
-        <link rel="stylesheet" href="sweetalert2.min.css">
-		<!-- STYLE CSS -->
-		<link rel="stylesheet" href="{{asset('image/css/style.css')}}">
-	</head>
-
-	<body>
-    @if(session()->has('message'))
-    <div class="alert alert-success">
-        {{ session()->get('message') }}
-    </div>
-    @endif
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-		<div class="wrapper">
-            
-			<div class="inner">
-           
-				<form action="{{route('post.store')}}" method="POST" enctype='multipart/form-data'>
-                @csrf
-					<h3>Set The Event</h3>
-					<div class="form-wrapper form-price">
-						<label for="">Price</label>
-						<span>$270</span>
-					</div>
-					
-					<div class="form-wrapper">
-						<label for="" class="label-input">Nom</label>
-						<input type="text" name="nom" class="form-control">
-					</div>
-                    <div class="form-wrapper form-select">
-						<label for="cat">Categorie</label>
-						<div class="form-holder">
-							<select name="category_id" id="cat" class="form-control">
-                            <option value="" selected class="option"></option>
-                                @foreach($categories as $categorie)                                
-								<option value="{{$categorie->id}}" class="">{{$categorie->name}}</option>
-								@endforeach
-							</select>
-							<i class="zmdi zmdi-chevron-down"></i>
-						</div>
-					</div>
-					 <div class="form-wrapper">
-						<label for="" class="label-input">Image</label>
-						<input type="file" name="photo" class="form-control">
-					</div>
-					<div class="form-wrapper">
-						<label for="" class="label-comment">Commentaire</label>
-						<textarea name="comment" id="" class="form-control" style="height: 69px"></textarea>
-					</div>
-                   
-					<button type="submit">Enregistrer</button>
-				</form>
-				<div class="image-holder">
-					<img src="{{asset('image/images/registration-form-5.jpg')}}" alt="">
-				</div>
-                <div class="float-right">
-                    <a href="{{route('home')}}"><i class="fa fa-close " style="font-size:40px;color:red"></i></a>
+@extends('layouts.master')
+@section('content')
+<section class="ftco-section contact-section bg-dark">
+    <div class="container">
+        <div class="row d-flex mb-5 contact-info">
+            <div class="col-md-12 mb-4">
+                <h2 class="h3">Contact Information</h2>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-md-3 d-flex">
+                <div class="info bg-white p-4">
+                    <p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
                 </div>
             </div>
-		</div>
-  
-		<script src="{{asset('image/js/jquery-3.3.1.min.js')}}"></script>
-		<script src="{{asset('image/js/main.js')}}"></script>
-        <script src="sweetalert2.all.min.js"></script>
-        <script>
-                 Swal.fire({
-                    title: 'Error!',
-                    text: 'Do you want to continue',
-                    icon: 'error',
-                    confirmButtonText: 'Cool'
-                    })
-        </script>
-	</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
-</html>
+            <div class="col-md-3 d-flex">
+                <div class="info bg-white p-4">
+                    <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex">
+                <div class="info bg-white p-4">
+                    <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex">
+                <div class="info bg-white p-4">
+                    <p><span>Website</span> <a href="#">yoursite.com</a></p>
+                </div>
+            </div>
+        </div>
+        @if(session()->has('message'))
+            <div class="alert alert-success">
+                {{ session()->get('message') }}
+            </div>
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <div class="row block-9">
+            <div class="col-md-6 order-md-last d-flex">
+                <form action="{{route('post.store')}}" method="POST" enctype='multipart/form-data' class="bg-white p-5 contact-form">
+                    @csrf
+                    <div class="form-group">
+                        <input type="text" name="nom" class="form-control" placeholder="Nom de l'Article">
+                    </div>
+                    <div class="form-group">
+                        <select name="category_id" id="" class="form-control">
+
+                            <option value="">Selectionnez la categorie</option>
+                            @foreach($categories as $categorie)
+                            <option value="{{$categorie->id}}">{{$categorie->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" name="photo" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="prix" class="form-control" placeholder="Le prix de l'Article">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="comment" id=""  cols="30" rows="7" class="form-control" placeholder="Faites un commentaire de l'Article"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Sauvegarder" class="btn btn-primary py-3 px-5">
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="col-md-6 d-flex ftco-animate h-25">
+                <div class="blog-entry align-self-stretch">
+                    <a href="blog-single.html" class="block-20" style="background-image:url('../../images/image_1.jpg');">
+                    </a>
+                    <div class="text mt-3 d-block">
+                        <h3 class="heading mt-3"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+                        <div class="meta mb-3">
+                            <div><a href="#">Dec 6, 2018</a></div>
+                            <div><a href="#">Admin</a></div>
+                            <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@endsection
