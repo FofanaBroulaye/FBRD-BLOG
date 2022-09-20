@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        $listPostsbyUsers = Post::paginate(8)->where('user_id', auth()->user()->id);
+        $listPostsbyUsers = Post::where('user_id', auth()->user()->id)->paginate(8);
         $listPosts = Post::paginate(8);
         if(auth()->user()->email != "fofanabr97@gmail.com"){
             return view('posts.indexPostUser', compact('listPosts', 'listPostsbyUsers'));

@@ -9,22 +9,22 @@
             <div class="w-100"></div>
             <div class="col-md-3 d-flex">
                 <div class="info bg-white p-4">
-                    <p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
+                    <p ><img src="../../images/statut8.jpg" width="200px" height="140px"></p>
                 </div>
             </div>
             <div class="col-md-3 d-flex">
                 <div class="info bg-white p-4">
-                    <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
+                    <p ><img src="../../images/statut1.jpg" width="200px" height="140px"></p>
                 </div>
             </div>
             <div class="col-md-3 d-flex">
                 <div class="info bg-white p-4">
-                    <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
+                    <p ><img src="../../images/statut2.jpg" width="200px" height="140px"></p>
                 </div>
             </div>
             <div class="col-md-3 d-flex">
                 <div class="info bg-white p-4">
-                    <p><span>Website</span> <a href="#">yoursite.com</a></p>
+                    <p ><img src="../../images/statut6.jpg" width="200px" height="140px"></p>
                 </div>
             </div>
         </div>
@@ -76,14 +76,13 @@
 
             <div class="col-md-6 d-flex ftco-animate h-25">
                 <div class="blog-entry align-self-stretch">
-                    <a href="blog-single.html" class="block-20" style="background-image:url('../../images/image_1.jpg');">
+                    <a href="blog-single.html" class="block-20" style="background-image:url('../../images/imagess.jpg'); width: 500px">
                     </a>
                     <div class="text mt-3 d-block">
-                        <h3 class="heading mt-3"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+                        <h3 class="heading mt-3"><a href="#">Tableau en toile peint soins</a></h3>
                         <div class="meta mb-3">
-                            <div><a href="#">Dec 6, 2018</a></div>
-                            <div><a href="#">Admin</a></div>
-                            <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                            <div><a href="#">{{date('d M Y')}}</a></div>
+                            <div><a href="#">{{auth()->user()->name}}</a></div>
                         </div>
                     </div>
                 </div>

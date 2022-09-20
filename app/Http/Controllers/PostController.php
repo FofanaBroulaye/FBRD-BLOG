@@ -155,4 +155,15 @@ class PostController extends Controller
         $users = User::paginate(5);
         return view('users.liste', compact('users'));
     }
+
+    public function search(){
+        $keyword = request()->input('q');
+        $listPosts = Post::whereHas('categories', function ($q) use($keyword){
+            $q->where('name', 'like', "%$keyword%");
+        })->orWhere('title', 'like', "%$keyword%")
+            ->paginate(8);
+
+
+        return view('posts.search', compact('listPosts'));
+    }
 }
